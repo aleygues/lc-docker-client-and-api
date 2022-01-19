@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  client:
+    build:
+      context: ./super-client
+      dockerfile: ./dev.dockerfile
+    #ports
+    #volumes
+  api:
+    build:
+      context: ./super-api
+      dockerfile: ./dev.dockerfile
+    #ports
+    #volumes

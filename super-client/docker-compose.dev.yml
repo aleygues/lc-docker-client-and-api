@@ -1,0 +1,12 @@
+version: '3'
+
+services: 
+  client:
+    build: 
+      context: .
+      dockerfile: dev.dockerfile
+    ports:
+      - 3002:3000
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
