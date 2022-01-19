@@ -9,3 +9,22 @@ services:
       - 4000:4000
     volumes:
       - ./src:/app/src
+      - ./ormconfig.json:/app/ormconfig.json
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    # restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecure
+      MYSQL_DATABASE: wcs
+    volumes:
+      - /var/lib/mysql # volume anonyme → docker qui gère
+      # - ./data:/var/lib/mysql # volume lié à l'host
+      # - superdb:/var/lib/mysql # volume nommé → docker qui gère, mais je dois d'abord
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
